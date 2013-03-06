@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluralSight", "PluralSight\PluralSight.csproj", "{E74E4588-A6A9-4297-8E23-2D932124FF90}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluralSightProcessor", "PluralSightProcessor\PluralSightProcessor.csproj", "{4996D6FC-5D0B-49AF-810A-A3F03F37165C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E74E4588-A6A9-4297-8E23-2D932124FF90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E74E4588-A6A9-4297-8E23-2D932124FF90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E74E4588-A6A9-4297-8E23-2D932124FF90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E74E4588-A6A9-4297-8E23-2D932124FF90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4996D6FC-5D0B-49AF-810A-A3F03F37165C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4996D6FC-5D0B-49AF-810A-A3F03F37165C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4996D6FC-5D0B-49AF-810A-A3F03F37165C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4996D6FC-5D0B-49AF-810A-A3F03F37165C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
