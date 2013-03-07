@@ -45,14 +45,11 @@
 
                     string CourseUrl = courseNode.SelectSingleNode(CourseUtlSuffixXPath).Attributes["href"].Value;
 
-                    //ChapterParser.Parse(new Uri(CourseUtlPrefixXPath + CourseUrl));
+                    List<Chapter> chapters = ChapterParser.Parse(new Uri(CourseUtlPrefixXPath + CourseUrl));
+                    course.Children.AddRange(chapters);
 
                     result.Add(course);
                 }
-
-                //Get Chapters
-
-
             }
 
             return result;

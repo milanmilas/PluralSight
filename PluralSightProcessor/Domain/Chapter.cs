@@ -9,5 +9,7 @@ namespace PluralSightProcessor.Domain
     public class Chapter : SelectableItem
     {
         public List<Video> Videos { get; set; }
+
+        public int ChapterNumber { get; set; }
     }
 }
