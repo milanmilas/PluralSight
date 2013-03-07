@@ -1,14 +1,15 @@
 ﻿using PluralSightProcessor.Domain;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using HtmlAgilityPack;
 
 namespace PluralSightProcessor
 {
+    using PluralSightProcessor.Parsers;
+
     public class TrainingVideosProcessor : PluralSightProcessor.ITrainingVideosProcessor
     {
+        //Mock
         public IList<Library> GetLibraryList()
         {
             return new List<Library>() { new Library{ Name = ".Net",
@@ -25,5 +26,26 @@ namespace PluralSightProcessor
                                          }, new Library{ Name="new"}
             };
         }
+
+        public IList<Library> GetLibraryList(Uri libraryUri)
+        {
+            var result = LibraryParser.Parse(libraryUri);
+
+            //Get Courses
+            foreach (var library in result)
+            {
+                List<Course> courses = CourseParser.Parse(library);
+
+                if (courses != null && courses.Count != 0)
+                {
+                    library.Courses.AddRange(courses);
+                    library.Children.AddRange(courses);
+                }
+            }
+
+            return result;
+        }
+
+
     }
 }

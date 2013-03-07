@@ -43,19 +43,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CourseParser.cs" />
+    <Compile Include="Parsers\ChapterParser.cs" />
+    <Compile Include="Parsers\CourseParser.cs" />
     <Compile Include="Domain\NamedItem.cs" />
     <Compile Include="Domain\NotifyPropertyChangedBase.cs" />
     <Compile Include="Domain\SelectableItem.cs" />
+    <Compile Include="ILibraryDocumentFactory.cs" />
     <Compile Include="ITrainingVideosProcessor.cs" />
-    <Compile Include="LibraryParser.cs" />
+    <Compile Include="LibraryDocumentFactory.cs" />
+    <Compile Include="Parsers\LibraryParser.cs" />
     <Compile Include="TrainingVideosProcessor.cs" />
     <Compile Include="Domain\Chapter.cs" />
     <Compile Include="Domain\Course.cs" />
     <Compile Include="Domain\Library.cs" />
     <Compile Include="Domain\Video.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VideoParser.cs" />
+    <Compile Include="Parsers\VideoParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Library\Source\HtmlAgilityPack.1.4.6.zip" />

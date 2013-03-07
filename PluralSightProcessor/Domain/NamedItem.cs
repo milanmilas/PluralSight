@@ -8,6 +8,10 @@ namespace PluralSightProcessor.Domain
 {
     public class NamedItem : NotifyPropertyChangedBase
     {
+        public NamedItem()
+        {
+            Children = new List<NamedItem>();
+        }
         public String Name { get; set; }
         public List<NamedItem> Children { get; set; }
     }

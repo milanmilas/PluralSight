@@ -16,7 +16,7 @@ namespace PluralSight.ViewModel
         public LibraryTreeViewModel()
         {
             trainingVideosProcessor = new TrainingVideosProcessor();
-            libraryList = trainingVideosProcessor.GetLibraryList();
+            libraryList = trainingVideosProcessor.GetLibraryList(new Uri("http://www.pluralsight.com/training/Courses"));
         }
     }
 }

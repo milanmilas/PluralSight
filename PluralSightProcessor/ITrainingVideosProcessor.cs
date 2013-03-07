@@ -3,8 +3,12 @@ using System.Collections.Generic;
 
 namespace PluralSightProcessor
 {
+    using PluralSightProcessor.Domain;
+
     public interface ITrainingVideosProcessor
     {
-        IList<PluralSightProcessor.Domain.Library> GetLibraryList();
+        IList<Library> GetLibraryList();
+
+        IList<Library> GetLibraryList(Uri libraryUri);
     }
 }
