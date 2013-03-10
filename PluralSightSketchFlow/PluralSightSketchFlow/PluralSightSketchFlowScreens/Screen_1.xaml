@@ -1,0 +1,15 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Name="PluralSightSketchFlowScreens_Screen_1_Name"
+	mc:Ignorable="d"
+	x:Class="PluralSightSketchFlowScreens.Screen_1"
+	Width="640" Height="480">
+
+	<Grid x:Name="LayoutRoot" Background="White">
+		<Button Content="Button" HorizontalAlignment="Left" Height="27" Margin="217,404,0,0" Style="{DynamicResource Button-Sketch}" VerticalAlignment="Top" Width="96.5"/>
+		<TreeView HorizontalAlignment="Left" Height="327.5" Margin="10,103.5,0,0" Style="{DynamicResource SimpleTreeView}" VerticalAlignment="Top" Width="191"/>
+		<TextBox HorizontalAlignment="Left" Height="22" Margin="13,56,0,0" Style="{DynamicResource BasicTextBox-Sketch}" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="188"/>
+	</Grid>
+</UserControl>

@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluralSightSketchFlow", "PluralSightSketchFlow\PluralSightSketchFlow.csproj", "{1ef8110d-7353-466c-bf1e-e719468c9493}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluralSightSketchFlowScreens", "PluralSightSketchFlow\PluralSightSketchFlowScreens\PluralSightSketchFlowScreens.csproj", "{5287d918-12d0-4164-9383-2dda3256b3ea}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1EF8110D-7353-466C-BF1E-E719468C9493}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EF8110D-7353-466C-BF1E-E719468C9493}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EF8110D-7353-466C-BF1E-E719468C9493}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EF8110D-7353-466C-BF1E-E719468C9493}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5287D918-12D0-4164-9383-2DDA3256B3EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5287D918-12D0-4164-9383-2DDA3256B3EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5287D918-12D0-4164-9383-2DDA3256B3EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5287D918-12D0-4164-9383-2DDA3256B3EA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
