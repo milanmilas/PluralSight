@@ -10,7 +10,7 @@ namespace PluralSight.ViewModel
 {
     public class LibraryTreeViewModel
     {
-        ITrainingVideosProcessor trainingVideosProcessor;
+        TrainingVideosProcessor trainingVideosProcessor;
         public IList<Library> libraryList { get; set;}
 
         public LibraryTreeViewModel()

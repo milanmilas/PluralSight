@@ -6,6 +6,9 @@
     using HtmlAgilityPack;
 
     using PluralSightProcessor.Domain;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using System.Linq;
 
     class CourseParser
     {
@@ -26,6 +29,13 @@
             List<Course> result = new List<Course>();
 
             //move this to base type for Library and course parser, and to be singlton
+            ParseCourses(library, result);
+
+            return result;
+        }
+
+        private static void ParseCourses(Library library, List<Course> result)
+        {
             HtmlAgilityPack.HtmlDocument webPage = new LibraryDocumentFactory(new Uri(Uri)).GetDocument as HtmlAgilityPack.HtmlDocument;
 
             if (webPage != null)
@@ -35,7 +45,7 @@
 
                 if (coursesNodes == null)
                 {
-                    throw new Exception(String.Format("XPath expression does not return any vlaue: {0}, LibraryNumber: {1}, html: {2}", CourseListXPath,library.LibraryNumber, webPage.DocumentNode.InnerText));
+                    throw new Exception(String.Format("XPath expression does not return any vlaue: {0}, LibraryNumber: {1}, html: {2}", CourseListXPath, library.LibraryNumber, webPage.DocumentNode.InnerText));
                 }
 
                 foreach (var courseNode in coursesNodes)
@@ -46,13 +56,27 @@
                     string CourseUrl = courseNode.SelectSingleNode(CourseUtlSuffixXPath).Attributes["href"].Value;
 
                     List<Chapter> chapters = ChapterParser.Parse(new Uri(CourseUtlPrefixXPath + CourseUrl));
-                    course.Children.AddRange(chapters);
+                    chapters.ForEach(x => course.Children.Add(x));
 
                     result.Add(course);
                 }
             }
+        }
 
-            return result;
+        internal static Task<List<Course>> ParseAsync(Library library)
+        {
+            if (library == null)
+            {
+                throw new ArgumentNullException("library", "Library parameter must have value");
+            }
+            List<Course> result = new List<Course>();
+
+            //move this to base type for Library and course parser, and to be singlton
+            Task<List<Course>> task = new Task<List<Course>>(() => { ParseCourses(library, result); return result; });
+            task.Start();
+
+
+            return task;
         }
     }
 }

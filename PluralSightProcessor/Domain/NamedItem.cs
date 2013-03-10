@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,9 +11,9 @@ namespace PluralSightProcessor.Domain
     {
         public NamedItem()
         {
-            Children = new List<NamedItem>();
+            Children = new ObservableCollection<NamedItem>();
         }
         public String Name { get; set; }
-        public List<NamedItem> Children { get; set; }
+        public ObservableCollection<NamedItem> Children { get; set; }
     }
 }
