@@ -1,15 +1,15 @@
 ﻿<Window x:Class="PluralSight.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:PluralSightProcessor.Domain;assembly=PluralSightProcessor"
+        xmlns:local="clr-namespace:PluralSight.ViewModel"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
         
         <TreeView ItemsSource="{Binding}">
             <TreeView.Resources>
                 <HierarchicalDataTemplate 
-                    DataType="{x:Type local:Library}"
-                    ItemsSource="{Binding Children}"
+                    DataType="{x:Type local:LibraryViewModel}"
+                    ItemsSource="{Binding Courses}"
                     >
                     <StackPanel Orientation="Horizontal">
                         <!-- These elements are bound to a ViewModel object. -->
@@ -23,7 +23,7 @@
                 </HierarchicalDataTemplate>
 
                 <HierarchicalDataTemplate 
-                    DataType="{x:Type local:Course}"
+                    DataType="{x:Type local:CourseViewModel}"
                     ItemsSource="{Binding Children}">
                     <StackPanel Orientation="Horizontal">
                         <!-- These elements are bound to a ViewModel object. -->
@@ -40,7 +40,7 @@
                 </HierarchicalDataTemplate>
 
                 <HierarchicalDataTemplate 
-                    DataType="{x:Type local:Chapter}"
+                    DataType="{x:Type local:ChapterViewModel}"
                     ItemsSource="{Binding Children}">
                     <StackPanel Orientation="Horizontal">
                         <!-- These elements are bound to a ViewModel object. -->
@@ -57,7 +57,7 @@
                 </HierarchicalDataTemplate>
 
                 <HierarchicalDataTemplate 
-                    DataType="{x:Type local:Video}"
+                    DataType="{x:Type local:VideoViewModel}"
                     ItemsSource="{Binding Children}">
                     <StackPanel Orientation="Horizontal">
                         <!-- These elements are bound to a ViewModel object. -->

@@ -6,6 +6,7 @@
     using HtmlAgilityPack;
 
     using PluralSightProcessor.Domain;
+    using System.Threading.Tasks;
 
     class ChapterParser
     {
@@ -37,7 +38,7 @@
                     String chapterName =
                         chapterNode.SelectSingleNode(ChapterTitleXPath).InnerText.Replace("\\r\\n", "").Trim();
                     chapter.Name = chapterName;
-                    chapter.ChapterNumber = chapterNumber++;
+                    chapter.Number = chapterNumber++;
 
                     ParseVideo(chapterNode, chapter);
 
@@ -46,6 +47,14 @@
             }
 
             return result;
+        }
+
+        public static Task<List<Chapter>> ParseAsync(Uri courseUrl)
+        {
+            Task<List<Chapter>> task = new Task<List<Chapter>>(() => { return Parse(courseUrl); });
+            task.Start();
+
+            return task;
         }
 
         private static void ParseVideo(HtmlNode chapterNode, Chapter chapter)
@@ -58,7 +67,7 @@
                 Video video = new Video();
                 video.Name = videoNode.SelectSingleNode(VideoNameXPath).InnerText.Replace("\\r\\n", "").Trim();
 
-                chapter.Children.Add(video);
+                chapter.Videos.Add(video);
             }
         }
     }

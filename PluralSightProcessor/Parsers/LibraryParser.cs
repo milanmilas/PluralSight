@@ -34,7 +34,7 @@
                     String libraryName =
                         libraryNode.SelectSingleNode(DivClassTitle).InnerText.Replace("\\r\\n", "").Trim();
                     library.Name = libraryName;
-                    library.LibraryNumber = LibraryNumber++;
+                    library.Number = LibraryNumber++;
 
                     result.Add(library);
                 }

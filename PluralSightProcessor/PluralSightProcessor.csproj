@@ -47,9 +47,6 @@
     <Compile Include="ICourseDocumentFactory.cs" />
     <Compile Include="Parsers\ChapterParser.cs" />
     <Compile Include="Parsers\CourseParser.cs" />
-    <Compile Include="Domain\NamedItem.cs" />
-    <Compile Include="Domain\NotifyPropertyChangedBase.cs" />
-    <Compile Include="Domain\SelectableItem.cs" />
     <Compile Include="ILibraryDocumentFactory.cs" />
     <Compile Include="ITrainingVideosProcessor.cs" />
     <Compile Include="LibraryDocumentFactory.cs" />

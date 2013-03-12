@@ -6,22 +6,26 @@ using System.Threading.Tasks;
 
 namespace PluralSightProcessor.Domain
 {
-    public class SelectableItem : NamedItem
+    public abstract class SelectableItem : NotifyPropertyChangedBase
     {
+        public abstract List<SelectableItem> GetChildren();
+
         private bool isSelected = false;
 
-        public bool IsSelected {
-            get { return isSelected; } 
-            set{
+        public bool IsSelected
+        {
+            get { return isSelected; }
+            set
+            {
                 isSelected = value;
-                if(Children != null)  SelectChildred(value);
+                if (GetChildren() != null) SelectChildred(value);
                 OnPropertyChanged(() => IsSelected);
-            } 
+            }
         }
 
         public void SelectChildred(bool selected)
         {
-            foreach (var child in Children)
+            foreach (var child in GetChildren())
             {
                 if (child is SelectableItem)
                 {

@@ -1,18 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace PluralSightProcessor.Domain
 {
-    public class Library : SelectableItem
+    public class Library
     {
-        public Library()
+        public String Name { get; set; }
+
+        public int Number { get; set; }
+
+        private ObservableCollection<Course> courses = new ObservableCollection<Course>();
+
+        public ObservableCollection<Course> Courses
         {
-            Courses = new List<Course>();
+            get { return courses; }
+            set { courses = value; }
         }
-        public int LibraryNumber;
-        public List<Course> Courses { get; set; }
     }
 }

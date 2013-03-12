@@ -11,12 +11,12 @@ namespace PluralSight.ViewModel
     public class LibraryTreeViewModel
     {
         TrainingVideosProcessor trainingVideosProcessor;
-        public IList<Library> libraryList { get; set;}
+        public IList<LibraryViewModel> libraryViewModelList { get; set; }
 
         public LibraryTreeViewModel()
         {
             trainingVideosProcessor = new TrainingVideosProcessor();
-            libraryList = trainingVideosProcessor.GetLibraryList(new Uri("http://www.pluralsight.com/training/Courses"));
+            libraryViewModelList = trainingVideosProcessor.GetLibraryListAsync(new Uri("http://www.pluralsight.com/training/Courses")).Select(x => new LibraryViewModel(x)).ToList<LibraryViewModel>();
         }
     }
 }

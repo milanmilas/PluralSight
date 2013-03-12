@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace PluralSightProcessor.Domain
 {
-    public class Video : SelectableItem
+    public class Video
     {
+        public String Name { get; set; }
     }
 }

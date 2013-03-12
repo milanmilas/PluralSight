@@ -35,6 +35,19 @@ namespace PluralSightProcessor
             //Get Courses
             foreach (var library in result)
             {
+                GetCourseDetails(library);
+            }
+
+            return result;
+        }
+
+        public IList<Library> GetLibraryListAsync(Uri libraryUri)
+        {
+            var result = LibraryParser.Parse(libraryUri);
+
+            //Get Courses
+            foreach (var library in result)
+            {
                 GetCourseDetailsAsync(library);
             }
 
@@ -58,13 +71,8 @@ namespace PluralSightProcessor
         {
             if (courses != null && courses.Count != 0)
             {
-                library.Courses.AddRange(courses);
-                courses.ForEach(x => library.Children.Add(x));
+                courses.ForEach(x => library.Courses.Add(x));
             }
         }
-
-
-
-
     }
 }
