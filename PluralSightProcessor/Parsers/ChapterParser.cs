@@ -24,7 +24,7 @@
             }
             List<Chapter> result = new List<Chapter>();
 
-            HtmlDocument webPage = new CourseDocumentFactory(courseUrl).GetDocument as HtmlDocument;
+            HtmlDocument webPage = new DocumentFactory(courseUrl).GetDocument as HtmlDocument;
 
             if (webPage != null)
             {

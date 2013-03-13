@@ -20,7 +20,7 @@
             }
             List<Library> result = new List<Library>();
 
-            HtmlDocument webPage = new LibraryDocumentFactory(libraryUri).GetDocument as HtmlDocument;
+            HtmlDocument webPage = new DocumentFactory(libraryUri).GetDocument as HtmlDocument;
 
             if (webPage != null)
             {

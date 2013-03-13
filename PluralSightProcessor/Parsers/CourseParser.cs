@@ -35,7 +35,7 @@
         {
             List<Course> result = new List<Course>();
 
-            HtmlDocument webPage = new LibraryDocumentFactory(new Uri(Uri)).GetDocument as HtmlDocument;
+            HtmlDocument webPage = new DocumentFactory(new Uri(Uri)).GetDocument as HtmlDocument;
 
             if (webPage != null)
             {

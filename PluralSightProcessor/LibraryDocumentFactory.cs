@@ -1,17 +1,23 @@
 ﻿using System;
 using HtmlAgilityPack;
+using System.Threading;
+using System.Collections.Generic;
 
 namespace PluralSightProcessor
 {
-    public class LibraryDocumentFactory : ILibraryDocumentFactory
+    public class DocumentFactory : ILibraryDocumentFactory
     {
         protected Uri Uri { get; set; }
 
-        private static volatile object htmlDocument;
+        private static Dictionary<Uri, ManualResetEventSlim> UriBarierDictionary = new Dictionary<Uri, ManualResetEventSlim>();
+
+        private static Object barierDicSync = new Object();
+
+        private static Dictionary<Uri, HtmlDocument> HtmlDocumentDictionary = new Dictionary<Uri, HtmlDocument>();
 
         private static readonly object SyncRoot = new Object();
 
-        public LibraryDocumentFactory(Uri uri)
+        public DocumentFactory(Uri uri)
         {
             Uri = uri;
         }
@@ -20,16 +26,45 @@ namespace PluralSightProcessor
         {
             get
             {
-                if (htmlDocument == null)
+                ManualResetEventSlim barier = null;
+
+                if (!UriBarierDictionary.ContainsKey(Uri))
                 {
-                    lock (SyncRoot)
+                    bool downloadPage = false;
+
+                    lock (barierDicSync)
                     {
-                        if (htmlDocument == null) htmlDocument = new HtmlWeb().Load(Uri.ToString());
+                        if (!UriBarierDictionary.ContainsKey(Uri))
+                        {
+                            barier = new ManualResetEventSlim(false);
+                            UriBarierDictionary.Add(Uri, barier);
+                            downloadPage = true;
+                        }
+                    }
+
+                    if (downloadPage)
+                    {
+                        HtmlDocumentDictionary.Add(Uri, new HtmlWeb().Load(Uri.ToString()));
+                        barier.Set();
+                    }
+                    else
+                    {
+                        WaitForPageDownload(barier);
                     }
                 }
+                else
+                {
+                    WaitForPageDownload(barier);
+                }
 
-                return htmlDocument;
+                return HtmlDocumentDictionary[Uri];
             }
+        }
+
+        private void WaitForPageDownload(ManualResetEventSlim barier)
+        {
+            barier = UriBarierDictionary[Uri];
+            barier.Wait();
         }
     }
 

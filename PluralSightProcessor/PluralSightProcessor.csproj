@@ -43,8 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CourseDocumentFactory.cs" />
-    <Compile Include="ICourseDocumentFactory.cs" />
     <Compile Include="Parsers\ChapterParser.cs" />
     <Compile Include="Parsers\CourseParser.cs" />
     <Compile Include="ILibraryDocumentFactory.cs" />
