@@ -16,7 +16,7 @@
         const string VideosXPath = "../tr[@class='tocClips' and preceding-sibling::tr[@id][1][@id='{0}']]";
         const string VideoNameXPath = "./td[@class='clipTitle']/div";
 
-        public static List<Chapter> Parse(Uri courseUrl)
+        public List<Chapter> Parse(Uri courseUrl)
         {
             if (courseUrl == null)
             {
@@ -51,13 +51,13 @@
 
         public static Task<List<Chapter>> ParseAsync(Uri courseUrl)
         {
-            Task<List<Chapter>> task = new Task<List<Chapter>>(() => { return Parse(courseUrl); });
+            Task<List<Chapter>> task = new Task<List<Chapter>>(() => new ChapterParser().Parse(courseUrl));
             task.Start();
 
             return task;
         }
 
-        private static void ParseVideo(HtmlNode chapterNode, Chapter chapter)
+        private void ParseVideo(HtmlNode chapterNode, Chapter chapter)
         {
             string videoXPath = String.Format(VideosXPath, chapterNode.Attributes["id"].Value);
             HtmlNodeCollection videoNodesForChapter = chapterNode.SelectNodes(videoXPath);

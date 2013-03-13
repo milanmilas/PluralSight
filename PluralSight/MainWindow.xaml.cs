@@ -24,12 +24,16 @@ namespace PluralSight
     public partial class MainWindow : Window
     {
         LibraryTreeViewModel namedItemModel = new LibraryTreeViewModel();
-        IList<LibraryViewModel> libraryList;
+        IList<LibraryViewModel> libraryViewModelList;
+
+        public IList<Library> LibraryList { get; set; }
 
         public MainWindow()
         {
-            libraryList = namedItemModel.libraryViewModelList;
-            this.DataContext = libraryList;
+            libraryViewModelList = namedItemModel.libraryViewModelList;
+            LibraryList = namedItemModel.libraryList;
+
+            this.DataContext = libraryViewModelList;
 
             InitializeComponent();
         }

@@ -13,9 +13,15 @@ namespace PluralSight.ViewModel
 
         public ChapterViewModel(Chapter chapter)
         {
-            // TODO: Complete member initialization
             this.chapter = chapter;
             chapter.Videos.CollectionChanged += Courses_CollectionChanged;
+            lock (videos)
+            {
+                foreach (var item in chapter.Videos)
+                {
+                    videos.Add(new VideoViewModel(item as Video));
+                }
+            }
         }
 
          public String Name {
@@ -38,9 +44,12 @@ namespace PluralSight.ViewModel
 
         void Courses_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            foreach (var item in e.NewItems)
+            lock (videos)
             {
-                videos.Add(new VideoViewModel(item as Video));
+                foreach (var item in e.NewItems)
+                {
+                    videos.Add(new VideoViewModel(item as Video));
+                }
             }
         }
 

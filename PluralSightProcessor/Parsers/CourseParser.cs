@@ -28,14 +28,14 @@
             }
 
             //move this to base type for Library and course parser, and to be singlton
-            return ParseCourses(library);
+            return new CourseParser().ParseCourses(library);
         }
 
-        private static List<Course> ParseCourses(Library library, bool parseChaptersAsync = false)
+        private List<Course> ParseCourses(Library library, bool parseChaptersAsync = false)
         {
             List<Course> result = new List<Course>();
 
-            HtmlAgilityPack.HtmlDocument webPage = new LibraryDocumentFactory(new Uri(Uri)).GetDocument as HtmlAgilityPack.HtmlDocument;
+            HtmlDocument webPage = new LibraryDocumentFactory(new Uri(Uri)).GetDocument as HtmlDocument;
 
             if (webPage != null)
             {
@@ -54,7 +54,7 @@
 
                     string CourseUrl = courseNode.SelectSingleNode(CourseUtlSuffixXPath).Attributes["href"].Value;
 
-                    List<Chapter> chapters = ChapterParser.Parse(new Uri(CourseUtlPrefixXPath + CourseUrl));
+                    List<Chapter> chapters = new ChapterParser().Parse(new Uri(CourseUtlPrefixXPath + CourseUrl));
                     chapters.ForEach(x => course.Chapters.Add(x));
 
                     result.Add(course);
@@ -71,7 +71,7 @@
             }
 
             //move this to base type for Library and course parser, and to be singlton
-            Task<List<Course>> task = new Task<List<Course>>(() => { return ParseCourses(library); });
+            Task<List<Course>> task = new Task<List<Course>>(() => new CourseParser().ParseCourses(library));
             task.Start();
 
 

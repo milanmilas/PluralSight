@@ -12,11 +12,14 @@ namespace PluralSight.ViewModel
     {
         TrainingVideosProcessor trainingVideosProcessor;
         public IList<LibraryViewModel> libraryViewModelList { get; set; }
+        public List<Library> libraryList { get; set; } 
 
         public LibraryTreeViewModel()
         {
             trainingVideosProcessor = new TrainingVideosProcessor();
-            libraryViewModelList = trainingVideosProcessor.GetLibraryListAsync(new Uri("http://www.pluralsight.com/training/Courses")).Select(x => new LibraryViewModel(x)).ToList<LibraryViewModel>();
+            libraryList =
+                trainingVideosProcessor.GetLibraryListAsync(new Uri("http://www.pluralsight.com/training/Courses")).ToList();
+            libraryViewModelList = libraryList.Select(x => new LibraryViewModel(x)).ToList<LibraryViewModel>();
         }
     }
 }

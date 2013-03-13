@@ -3,21 +3,18 @@ using HtmlAgilityPack;
 
 namespace PluralSightProcessor
 {
+    using System.Collections.Generic;
+
     public class CourseDocumentFactory : ICourseDocumentFactory
     {
-        protected static Uri Uri { get; set; }
+        protected Uri Uri { get; set; }
 
-        private static volatile object htmlDocument;
+        private static Dictionary<Uri, HtmlDocument> WebPagesDictionay = new Dictionary<Uri,HtmlDocument>();
 
         private static readonly object SyncRoot = new Object();
 
         public CourseDocumentFactory(Uri uri)
         {
-            if (Uri != null && !uri.AbsoluteUri.Equals(Uri.AbsoluteUri))
-            {
-                htmlDocument = null;
-            } 
-
             Uri = uri;
         }
 
@@ -25,15 +22,15 @@ namespace PluralSightProcessor
         {
             get
             {
-                if (htmlDocument == null)
+                if (!WebPagesDictionay.ContainsKey(Uri))
                 {
                     lock (SyncRoot)
                     {
-                        if (htmlDocument == null) htmlDocument = new HtmlWeb().Load(Uri.ToString());
+                        if (!WebPagesDictionay.ContainsKey(Uri)) WebPagesDictionay.Add(Uri, new HtmlWeb().Load(Uri.ToString()));
                     }
                 }
 
-                return htmlDocument;
+                return WebPagesDictionay[Uri];
             }
         }
     }
