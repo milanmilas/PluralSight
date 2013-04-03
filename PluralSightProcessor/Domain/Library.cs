@@ -13,6 +13,8 @@ namespace PluralSightProcessor.Domain
 
         public int Number { get; set; }
 
+        public int NumberOfCourses { get; set; }
+
         private ObservableCollection<Course> courses = new ObservableCollection<Course>();
 
         public ObservableCollection<Course> Courses

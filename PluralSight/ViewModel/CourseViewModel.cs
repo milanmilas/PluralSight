@@ -13,6 +13,7 @@ namespace PluralSight.ViewModel
 
         public CourseViewModel(Course course)
         {
+            Statistics.Singlton.NumberOfCourses++;
             this.course = course;
             course.Chapters.CollectionChanged += Courses_CollectionChanged;
             lock (course)
@@ -48,7 +49,12 @@ namespace PluralSight.ViewModel
             {
                 foreach (var item in e.NewItems)
                 {
-                    chapters.Add(new ChapterViewModel(item as Chapter));
+                    System.Windows.Application.Current.Dispatcher.Invoke(
+                         System.Windows.Threading.DispatcherPriority.Normal,
+                         (Action)delegate()
+                         {
+                             chapters.Add(new ChapterViewModel(item as Chapter));
+                         });
                 }
             }
         }

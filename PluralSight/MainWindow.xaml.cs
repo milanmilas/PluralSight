@@ -25,6 +25,9 @@ namespace PluralSight
     {
         LibraryTreeViewModel namedItemModel = new LibraryTreeViewModel();
         IList<LibraryViewModel> libraryViewModelList;
+        public Statistics Statistics {
+            get{ return Statistics.Singlton;}
+        }
 
         public IList<Library> LibraryList { get; set; }
 
@@ -36,6 +39,11 @@ namespace PluralSight
             this.DataContext = libraryViewModelList;
 
             InitializeComponent();
+        }
+
+        private void SaveDictionary_Click(object sender, RoutedEventArgs e)
+        {
+            namedItemModel.SaveDictionary(@"LibraryList.xml");
         }
     }
 }

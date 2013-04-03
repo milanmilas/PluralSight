@@ -2,19 +2,16 @@
 {
     using System;
     using System.Collections.Generic;
-
     using HtmlAgilityPack;
-
     using PluralSightProcessor.Domain;
     using System.Threading.Tasks;
 
     class ChapterParser
     {
-        const string ChapterNodeXPath = "//tr[@class='module']";
-       // const string ChapterNodeXPath = "//td[@class='title tocModule']";
-        const string ChapterTitleXPath = "./td[@class='title tocModule']/div/text()[2]";
-        const string VideosXPath = "../tr[@class='tocClips' and preceding-sibling::tr[@id][1][@id='{0}']]";
-        const string VideoNameXPath = "./td[@class='clipTitle']/div";
+        string ChapterNodeXPath = TrainingVideosProcessor.Config.ChapterNodeXPath;
+        string ChapterTitleXPath = TrainingVideosProcessor.Config.ChapterTitleXPath;
+        string VideosXPath = TrainingVideosProcessor.Config.VideosXPath;
+        string VideoNameXPath = TrainingVideosProcessor.Config.VideoNameXPath;
 
         public List<Chapter> Parse(Uri courseUrl)
         {

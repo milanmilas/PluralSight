@@ -2,19 +2,37 @@
 using HtmlAgilityPack;
 using System.Threading;
 using System.Collections.Generic;
+using System.Xml;
 
 namespace PluralSightProcessor
 {
     public class DocumentFactory : ILibraryDocumentFactory
     {
+        private static int numConcWebRequests = 10;
+
+        public static int NumConcWebRequests
+        {
+            get { return numConcWebRequests; }
+            set {
+                for (int i = 0; i < numConcWebRequests; i++)
+                {
+                    ConcurentWebRequests.WaitOne();
+                }
+                numConcWebRequests = value;
+                ConcurentWebRequests = new Semaphore(numConcWebRequests, numConcWebRequests);
+            }
+        }
+
         protected Uri Uri { get; set; }
+
+        private static Semaphore ConcurentWebRequests = new Semaphore(numConcWebRequests, numConcWebRequests);
 
         private static Dictionary<Uri, ManualResetEventSlim> UriBarierDictionary = new Dictionary<Uri, ManualResetEventSlim>();
 
         private static Object barierDicSync = new Object();
 
-        private static Dictionary<Uri, HtmlDocument> HtmlDocumentDictionary = new Dictionary<Uri, HtmlDocument>();
-
+        private static Dictionary<string, HtmlDocument> HtmlDocumentDictionary = new Dictionary<string, HtmlDocument>();
+        
         private static readonly object SyncRoot = new Object();
 
         public DocumentFactory(Uri uri)
@@ -44,7 +62,28 @@ namespace PluralSightProcessor
 
                     if (downloadPage)
                     {
-                        HtmlDocumentDictionary.Add(Uri, new HtmlWeb().Load(Uri.ToString()));
+                        int numTry = 0;
+                        HtmlDocument doc = null;
+                        ConcurentWebRequests.WaitOne();
+                        Retry:
+                        try
+                        {
+                            
+                            doc = new HtmlWeb().Load(Uri.ToString());
+                            ConcurentWebRequests.Release(1);
+                        }
+                        catch
+                        {
+                            if (numTry < 5) {
+                                numTry++;
+                                Console.WriteLine(numTry + " : " + Uri.ToString());
+                                goto Retry; 
+                            }
+                            throw;
+                        }
+
+                        HtmlDocumentDictionary.Add(Uri.AbsoluteUri, doc);
+
                         barier.Set();
                     }
                     else
@@ -57,7 +96,7 @@ namespace PluralSightProcessor
                     WaitForPageDownload(barier);
                 }
 
-                return HtmlDocumentDictionary[Uri];
+                return HtmlDocumentDictionary[Uri.AbsoluteUri];
             }
         }
 

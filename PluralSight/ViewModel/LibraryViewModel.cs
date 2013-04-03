@@ -11,11 +11,31 @@ namespace PluralSight.ViewModel
     public class LibraryViewModel : SelectableItem
     {
         private Library library;
+        private int currentNumberOfCourses;
+        private int progress;
+
+        public Library Library {
+            get { return library; }
+            set { library = value; }
+        }
 
         public String Name {
             get { return library.Name; }
             set { library.Name = value; }
         }
+
+        public int NumberOfCourses
+        {
+            get { return library.NumberOfCourses; }
+        }
+
+        public int CurrentNumberOfCourses
+        {
+            get {return currentNumberOfCourses;}
+            set { currentNumberOfCourses = value; Progress = (NumberOfCourses != 0) ? (currentNumberOfCourses * 100/NumberOfCourses) : 0; }
+        }
+
+        public int Progress { get { return progress; } set { progress = value; OnPropertyChanged(() => this.Progress); } }
 
         private ObservableCollection<CourseViewModel> courses = new ObservableCollection<CourseViewModel>();
 
@@ -27,8 +47,17 @@ namespace PluralSight.ViewModel
 
         public LibraryViewModel(Library library)
         {
+            Statistics.Singlton.NumberOfLibraries++;
             this.library = library;
             library.Courses.CollectionChanged += Courses_CollectionChanged;
+            lock (library)
+            {
+                foreach (var item in library.Courses)
+                {
+                    CurrentNumberOfCourses++;
+                    courses.Add(new CourseViewModel(item as Course));
+                }
+            }
         }
 
         public LibraryViewModel()
@@ -40,6 +69,7 @@ namespace PluralSight.ViewModel
         {
             foreach (var item in e.NewItems)
             {
+                CurrentNumberOfCourses++;
                 courses.Add(new CourseViewModel(item as Course));
             }
         }

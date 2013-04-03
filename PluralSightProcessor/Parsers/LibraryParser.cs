@@ -9,10 +9,11 @@
 
     class LibraryParser
     {
-        const string LibraryXPath = "//div[@class='categoryHeader ']";
-        const string DivClassTitle = "./div[@class='title']";
+        string LibraryXPath = TrainingVideosProcessor.Config.LibraryXPath;
+        string DivClassTitle = TrainingVideosProcessor.Config.DivClassTitle;
+        string NumberOfCoursesXPath = TrainingVideosProcessor.Config.NumberOfCoursesXPath;
 
-        public static List<Library> Parse(Uri libraryUri)
+        public List<Library> Parse(Uri libraryUri)
         {
             if (libraryUri == null)
             {
@@ -35,6 +36,11 @@
                         libraryNode.SelectSingleNode(DivClassTitle).InnerText.Replace("\\r\\n", "").Trim();
                     library.Name = libraryName;
                     library.Number = LibraryNumber++;
+                    String numCours = libraryNode.SelectSingleNode(NumberOfCoursesXPath).InnerText.Replace("\\r\\n", "").Replace("courses)", "")
+                                                                                                    .Replace("course)", "").Replace("(", "").Trim();
+                    int numCourseNumber;
+                    int.TryParse(numCours, out numCourseNumber);
+                    library.NumberOfCourses = numCourseNumber;
 
                     result.Add(library);
                 }

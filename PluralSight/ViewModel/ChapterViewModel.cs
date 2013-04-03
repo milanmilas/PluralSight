@@ -13,6 +13,7 @@ namespace PluralSight.ViewModel
 
         public ChapterViewModel(Chapter chapter)
         {
+            Statistics.Singlton.NumberOfChapters++;
             this.chapter = chapter;
             chapter.Videos.CollectionChanged += Courses_CollectionChanged;
             lock (videos)

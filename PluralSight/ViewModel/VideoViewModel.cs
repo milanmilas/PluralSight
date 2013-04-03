@@ -18,6 +18,7 @@ namespace PluralSight.ViewModel
 
         public VideoViewModel(Video video)
         {
+            Statistics.Singlton.NumberOfVideos++;
             // TODO: Complete member initialization
             this.video = video;
         }
