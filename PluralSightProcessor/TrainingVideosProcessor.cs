@@ -48,7 +48,7 @@ namespace PluralSightProcessor
             foreach (var library in result)
             {
 
-                Library cashedLibrary = Config.ExistingList.Where(l => l.Name.Equals(library.Name)).FirstOrDefault();
+                Library cashedLibrary = Config.ExistingList != null ? Config.ExistingList.Where(l => l.Name.Equals(library.Name)).FirstOrDefault() : null;
                 GetCourseDetailsAsync(library, cashedLibrary);
             }
 
