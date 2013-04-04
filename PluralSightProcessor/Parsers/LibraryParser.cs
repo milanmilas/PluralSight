@@ -10,7 +10,7 @@
     class LibraryParser
     {
         string LibraryXPath = TrainingVideosProcessor.Config.LibraryXPath;
-        string DivClassTitle = TrainingVideosProcessor.Config.DivClassTitle;
+        string DivClassTitleXPath = TrainingVideosProcessor.Config.DivClassTitleXPath;
         string NumberOfCoursesXPath = TrainingVideosProcessor.Config.NumberOfCoursesXPath;
 
         public List<Library> Parse(Uri libraryUri)
@@ -33,7 +33,7 @@
                     Library library = new Library();
 
                     String libraryName =
-                        libraryNode.SelectSingleNode(DivClassTitle).InnerText.Replace("\\r\\n", "").Trim();
+                        libraryNode.SelectSingleNode(DivClassTitleXPath).InnerText.Replace("\\r\\n", "").Trim();
                     library.Name = libraryName;
                     library.Number = LibraryNumber++;
                     String numCours = libraryNode.SelectSingleNode(NumberOfCoursesXPath).InnerText.Replace("\\r\\n", "").Replace("courses)", "")

@@ -11,23 +11,24 @@ namespace PluralSightProcessor
     {
         //TrainingVideoProcessor
         public IList<Library> ExistingList { get; set; }
-        public string LibraryProxyURL { get; set; }
-        public string CourseProxyURL { get; set; } 
+
+        private string libraryURL = "www.pluralsight.com/training/Courses";
+        public string LibraryURL { get { return libraryURL; } set { libraryURL = value; } }
+
+        private string libraryProxyURL = "http://www.get-access.appspot.com/";
+        public string LibraryProxyURL { get { return libraryProxyURL; } set { libraryProxyURL = value; } }
 
         //LibraryParser
         private string libraryXPath = "//div[@class='categoryHeader ']";
         public string LibraryXPath { get { return libraryXPath; } set { libraryXPath = value; } }
 
-        private string divClassTitle = "./div[@class='title']";
-        public  string DivClassTitle { get { return divClassTitle; } set { divClassTitle = value; } }
+        private string divClassTitleXPath = "./div[@class='title']";
+        public  string DivClassTitleXPath { get { return divClassTitleXPath; } set { divClassTitleXPath = value; } }
 
         private string numberOfCoursesXPath = "./div[@class='courseCount']";
         public  string NumberOfCoursesXPath { get { return numberOfCoursesXPath; } set { numberOfCoursesXPath = value; } }
 
         //CourseParser
-        private string uri = "http://www.get-access.appspot.com/www.pluralsight.com/training/Courses";
-        public  string Uri { get { return uri; } set { uri = value; } }
-
         private string courseListXPath = "(//div[@class='courseList'])[{0}]//tr";
         public  string CourseListXPath { get { return courseListXPath; } set { courseListXPath = value; } }
 
@@ -35,10 +36,10 @@ namespace PluralSightProcessor
         public  string CourseTitleXPath { get { return courseTitleXPath; } set { courseTitleXPath = value; } }
 
         private string courseUtlSuffixXPath = "./td[@class='title']/a";
-        public string CourseUtlSuffixXPath { get { return courseTitleXPath; } set { courseTitleXPath = value; } }
+        public string CourseUtlSuffixXPath { get { return courseUtlSuffixXPath; } set { courseUtlSuffixXPath = value; } }
 
-        private string courseUtlPrefixXPath = "http://www.get-access.appspot.com";
-        public string CourseUtlPrefixXPath { get { return courseUtlPrefixXPath; } set { courseUtlPrefixXPath = value; } }
+        private string courseProxyURL = "http://www.get-access.appspot.com";
+        public string CourseProxyURL { get { return courseProxyURL; } set { courseProxyURL = value; } }
 
         //ChapterParser
         private string chapterNodeXPath = "//tr[@class='module']";

@@ -6,10 +6,81 @@
 	mc:Ignorable="d"
 	x:Class="PluralSightSketchFlowScreens.Screen_1"
 	Width="640" Height="480">
+	<UserControl.Resources>
+		<DataTemplate x:Key="ItemTemplate">
+			<StackPanel>
+				<TextBlock Text="{Binding Name}" Style="{DynamicResource BasicTextBlock-Sketch}"/>
+			</StackPanel>
+		</DataTemplate>
+		<ControlTemplate x:Key="DataGridControlTemplate1" TargetType="{x:Type DataGrid}">
+			<Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="True">
+				<ScrollViewer x:Name="DG_ScrollViewer" Focusable="False">
+					<ScrollViewer.Template>
+						<ControlTemplate TargetType="{x:Type ScrollViewer}">
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto"/>
+									<ColumnDefinition Width="*"/>
+									<ColumnDefinition Width="Auto"/>
+								</Grid.ColumnDefinitions>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="*"/>
+									<RowDefinition Height="Auto"/>
+								</Grid.RowDefinitions>
+								<Button Command="ApplicationCommands.SelectAll" Focusable="False" Style="{DynamicResource {ComponentResourceKey ResourceId=DataGridSelectAllButtonStyle, TypeInTargetAssembly={x:Type DataGrid}}}" Width="{Binding CellsPanelHorizontalOffset, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type DataGrid}}}">
+									<Button.Visibility>
+										<Binding Path="HeadersVisibility" RelativeSource="{RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type DataGrid}}">
+											<Binding.ConverterParameter>
+												<DataGridHeadersVisibility>All</DataGridHeadersVisibility>
+											</Binding.ConverterParameter>
+										</Binding>
+									</Button.Visibility>
+								</Button>
+								<DataGridColumnHeadersPresenter x:Name="PART_ColumnHeadersPresenter" Grid.Column="1">
+									<DataGridColumnHeadersPresenter.Visibility>
+										<Binding Path="HeadersVisibility" RelativeSource="{RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type DataGrid}}">
+											<Binding.ConverterParameter>
+												<DataGridHeadersVisibility>Column</DataGridHeadersVisibility>
+											</Binding.ConverterParameter>
+										</Binding>
+									</DataGridColumnHeadersPresenter.Visibility>
+								</DataGridColumnHeadersPresenter>
+								<ScrollContentPresenter x:Name="PART_ScrollContentPresenter" CanContentScroll="{TemplateBinding CanContentScroll}" CanHorizontallyScroll="False" Grid.ColumnSpan="2" CanVerticallyScroll="False" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Grid.Row="1"/>
+								<ScrollBar x:Name="PART_VerticalScrollBar" Grid.Column="2" Maximum="{TemplateBinding ScrollableHeight}" Orientation="Vertical" Grid.Row="1" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" ViewportSize="{TemplateBinding ViewportHeight}"/>
+								<Grid Grid.Column="1" Grid.Row="2">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="{Binding NonFrozenColumnsViewportHorizontalOffset, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type DataGrid}}}"/>
+										<ColumnDefinition Width="*"/>
+									</Grid.ColumnDefinitions>
+									<ScrollBar x:Name="PART_HorizontalScrollBar" Grid.Column="1" Maximum="{TemplateBinding ScrollableWidth}" Orientation="Horizontal" Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}" Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" ViewportSize="{TemplateBinding ViewportWidth}"/>
+								</Grid>
+							</Grid>
+						</ControlTemplate>
+					</ScrollViewer.Template>
+					<ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+				</ScrollViewer>
+			</Border>
+		</ControlTemplate>
+	</UserControl.Resources>
 
-	<Grid x:Name="LayoutRoot" Background="White">
-		<Button Content="Button" HorizontalAlignment="Left" Height="27" Margin="217,404,0,0" Style="{DynamicResource Button-Sketch}" VerticalAlignment="Top" Width="96.5"/>
-		<TreeView HorizontalAlignment="Left" Height="327.5" Margin="10,103.5,0,0" Style="{DynamicResource SimpleTreeView}" VerticalAlignment="Top" Width="191"/>
-		<TextBox HorizontalAlignment="Left" Height="22" Margin="13,56,0,0" Style="{DynamicResource BasicTextBox-Sketch}" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="188"/>
+	<Grid x:Name="LayoutRoot" Background="White" DataContext="{Binding Source={StaticResource TreeViewData}}">
+		<TabControl HorizontalAlignment="Left" Height="480" Style="{DynamicResource TabControl-Sketch}" VerticalAlignment="Top" Width="640">
+			<TabItem Header="TabItem" Style="{DynamicResource TabItem-Sketch}">
+				<Grid Background="#FFE5E5E5">
+					<Button x:Name="Download" Content="Download" HorizontalAlignment="Left" Height="27" Margin="10,349.537,0,0" Style="{DynamicResource Button-Sketch}" VerticalAlignment="Top" Width="96.5"/>
+					<TextBox HorizontalAlignment="Left" Height="22" Margin="10,10,0,0" Style="{DynamicResource BasicTextBox-Sketch}" TextWrapping="Wrap" Text="Search" VerticalAlignment="Top" Width="188"/>
+					<TreeView HorizontalAlignment="Left" Height="232" Margin="10,91.537,0,0" VerticalAlignment="Top" Width="188" DataContext="{Binding}" ItemsSource="{Binding Collection}"/>
+					<DataGrid HorizontalAlignment="Left" Height="269.537" Margin="220,10,0,0" VerticalAlignment="Top" Width="400" ItemsSource="{Binding Collection}" Template="{DynamicResource DataGridControlTemplate1}"/>
+				</Grid>
+			</TabItem>
+			<TabItem Header="TabItem" Style="{DynamicResource TabItem-Sketch}">
+				<Grid Background="#FFE5E5E5" Height="440.537" Width="630">
+					<TextBox HorizontalAlignment="Left" Height="22" Margin="10,10,0,0" Style="{DynamicResource BasicTextBox-Sketch}" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="188"/>
+					<TreeView HorizontalAlignment="Left" Height="383" Margin="10,47.537,0,0" VerticalAlignment="Top" Width="188" ItemsSource="{Binding Collection}"/>
+					<TextBox HorizontalAlignment="Left" Height="315.537" Margin="231,10,0,0" Style="{DynamicResource Note-Sketch}" TextWrapping="Wrap" Text="Video" VerticalAlignment="Top" Width="389"/>
+				</Grid>
+			</TabItem>
+		</TabControl>
 	</Grid>
 </UserControl>

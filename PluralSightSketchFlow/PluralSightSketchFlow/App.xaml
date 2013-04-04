@@ -9,6 +9,7 @@
 				<ResourceDictionary Source="/Microsoft.Expression.Prototyping.SketchControls;component/ScrollViewerStyles.xaml"/>
 				<ResourceDictionary Source="/PluralSightSketchFlow.Screens;component/SketchStyles.xaml"/>
 				<ResourceDictionary Source="/PluralSightSketchFlow.Screens;component/Simple Styles.xaml"/>
+				<ResourceDictionary Source="/PluralSightSketchFlow.Screens;component/ProjectDataSources.xaml"/>
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Application.Resources>

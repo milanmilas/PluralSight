@@ -19,17 +19,13 @@ namespace PluralSight.ViewModel
 
         public LibraryTreeViewModel()
         {  
-
             trainingVideosProcessor = new TrainingVideosProcessor();
             List<Library> cashedList =  DeserializeLibraryXmlList();
-            //trainingVideosProcessor.GetLibraryListStub().ToList();//
             libraryList = trainingVideosProcessor
                                 .SetExistingList(cashedList)
-                                .GetLibraryListAsync(new Uri("http://www.get-access.appspot.com/" + "www.pluralsight.com/training/Courses"))
+                                .GetLibraryListAsync()
                                 .ToList();
 
-            //http://www.surfhidden.com/surfhidden.php?u=http%3A%2F%2Fwww.google.com
-            //.GetLibraryListAsync(new Uri("http://anonymouse.org/cgi-bin/anon-www.cgi/" + "http://www.pluralsight.com/training/Courses"))
             libraryViewModelList = libraryList.Select(x => new LibraryViewModel(x)).ToList<LibraryViewModel>();
         }
 

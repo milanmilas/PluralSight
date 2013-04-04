@@ -12,13 +12,13 @@
 
     class CourseParser
     {
-        string Uri = TrainingVideosProcessor.Config.Uri;
+        string Uri = TrainingVideosProcessor.Config.LibraryProxyURL+TrainingVideosProcessor.Config.LibraryURL;
 
         string CourseListXPath = TrainingVideosProcessor.Config.CourseListXPath;
 
         string CourseTitleXPath = TrainingVideosProcessor.Config.CourseTitleXPath;
         string CourseUtlSuffixXPath = TrainingVideosProcessor.Config.CourseUtlSuffixXPath;
-        string CourseUtlPrefixXPath = TrainingVideosProcessor.Config.CourseUtlPrefixXPath;
+        string CourseUtlPrefixXPath = TrainingVideosProcessor.Config.CourseProxyURL;
 
 
         private List<Course> ParseCourses(Library library, Library cashedLibray = null, bool parseChaptersAsync = false)
